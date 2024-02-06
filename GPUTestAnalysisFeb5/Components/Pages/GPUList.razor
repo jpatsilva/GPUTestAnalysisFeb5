@@ -1,0 +1,33 @@
+﻿@page "/GPUs"
+@using GPUTestAnalysisFeb5.Entity
+@using GPUTestAnalysisFeb5.Services
+@inject IGPUService GPUService
+
+<h3>GPUList</h3>
+
+@if(gpus == null)
+{
+    <span>Loading...</span>
+}
+else if (gpus.Count == 0)
+{
+    <span>No GPUs found.</span>
+}
+else
+{
+    <ul>
+        @foreach (var gpu in gpus)
+        {
+            <li> @gpu.Type</li>
+        }
+    </ul>
+}
+
+@code {
+    List<GPU>? gpus = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        gpus = await GPUService.GetAllGPUs();
+    }
+}
