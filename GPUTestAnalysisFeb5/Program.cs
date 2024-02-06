@@ -1,7 +1,7 @@
-using GPUTestAnalysisFeb5.Services;
+using GPUTestAnalysisFeb5.Shared.Services;
 using GPUTestAnalysisFeb5.Client.Pages;
 using GPUTestAnalysisFeb5.Components;
-using GPUTestAnalysisFeb5.Data;
+using GPUTestAnalysisFeb5.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

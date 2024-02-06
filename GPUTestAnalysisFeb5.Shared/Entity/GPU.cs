@@ -1,4 +1,4 @@
-﻿namespace GPUTestAnalysisFeb5.Entity
+﻿namespace GPUTestAnalysisFeb5.Shared.Entity
 {
     public class GPU
     {

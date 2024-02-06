@@ -1,7 +1,7 @@
-﻿using GPUTestAnalysisFeb5.Entity;
+﻿using GPUTestAnalysisFeb5.Shared.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace GPUTestAnalysisFeb5.Data
+namespace GPUTestAnalysisFeb5.Shared.Data
 {
     public class DataContext : DbContext
     {

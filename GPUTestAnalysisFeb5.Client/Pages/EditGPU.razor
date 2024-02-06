@@ -1,10 +1,9 @@
 ﻿@page "/editgpu"
 @page "/editgpu/{id:int}"
-@using GPUTestAnalysisFeb5.Entity
-@using GPUTestAnalysisFeb5.Services
-
-
+@using GPUTestAnalysisFeb5.Shared.Entity
+@using GPUTestAnalysisFeb5.Shared.Services
 @inject IGPUService GPUService
+@rendermode InteractiveWebAssembly
 
 <h3>Create a GPU</h3>
 

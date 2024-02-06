@@ -1,8 +1,8 @@
-﻿using GPUTestAnalysisFeb5.Data;
-using GPUTestAnalysisFeb5.Entity;
+﻿using GPUTestAnalysisFeb5.Shared.Data;
+using GPUTestAnalysisFeb5.Shared.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace GPUTestAnalysisFeb5.Services
+namespace GPUTestAnalysisFeb5.Shared.Services
 {
     public class GPUService : IGPUService
     {

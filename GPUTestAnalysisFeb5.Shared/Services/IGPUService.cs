@@ -1,6 +1,6 @@
-﻿using GPUTestAnalysisFeb5.Entity;
+﻿using GPUTestAnalysisFeb5.Shared.Entity;
 
-namespace GPUTestAnalysisFeb5.Services
+namespace GPUTestAnalysisFeb5.Shared.Services
 {
     public interface IGPUService
     {
