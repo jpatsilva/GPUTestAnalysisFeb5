@@ -6,5 +6,6 @@ namespace GPUTestAnalysisFeb5.Shared.Services
     {
         Task<List<GPU>> GetAllGPUs();
         Task<GPU> AddGPU(GPU gpu);
+        Task<GPU> GetGPUById(int id);
     }
 }

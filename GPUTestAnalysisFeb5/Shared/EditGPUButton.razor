@@ -1,0 +1,14 @@
+﻿@inject NavigationManager NavigationManager
+
+<button @onclick="EditGPU" class="btn btn-primary">Edit a GPU</button>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    void EditGPU()
+    {
+        NavigationManager.NavigateTo($"/editgpu/{Id}");
+    }
+}

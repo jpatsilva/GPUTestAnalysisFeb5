@@ -1,0 +1,11 @@
+﻿@inject NavigationManager NavigationManager
+
+<button @onclick="CreateGPU" class="btn btn-primary">Create a GPU</button>
+
+
+@code {
+    void CreateGPU()
+    {
+        NavigationManager.NavigateTo("/editgpu");
+    }
+}

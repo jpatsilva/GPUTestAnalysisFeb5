@@ -5,7 +5,16 @@
 @inject IGPUService GPUService
 @rendermode InteractiveWebAssembly
 
-<h3>Create a GPU</h3>
+@if(Id == null)
+{
+    <h3>Create a GPU</h3>
+}
+else
+{
+    <h3>Edit @gpu.Type</h3>
+}
+
+
 
 <EditForm Model="gpu" OnSubmit="HandleSubmit" FormName="editGPU" class="col-3">
     <label for="formGroupNewGPU" class="form-label">Type: </label>
@@ -28,6 +37,11 @@
     public int? Id { get; set; }
     [SupplyParameterFromForm]
     GPU gpu { get; set; } = new GPU { Id = 0, Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
+
+    protected override async Task OnParametersSetAsync()
+    {
+        gpu = await GPUService.GetGPUById((int)Id);
+    }
 
     async Task HandleSubmit()
     {

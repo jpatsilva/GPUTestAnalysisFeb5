@@ -1,6 +1,7 @@
 ﻿@page "/GPUs"
 @using GPUTestAnalysisFeb5.Shared.Entity
 @using GPUTestAnalysisFeb5.Shared.Services
+@using GPUTestAnalysisFeb5.Shared
 
 @inject IGPUService GPUService
 @inject NavigationManager NavigationManager
@@ -22,7 +23,7 @@ else
     <ul>
         @foreach (var gpu in gpus)
         {
-            <li> @gpu.Type</li>
+            <li> @gpu.Type <EditGPUButton Id="gpu.Id" /></li>
         }
     </ul>
 }

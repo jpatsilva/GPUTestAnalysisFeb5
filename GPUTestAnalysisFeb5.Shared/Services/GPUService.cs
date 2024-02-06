@@ -25,5 +25,10 @@ namespace GPUTestAnalysisFeb5.Shared.Services
             var gpus = await _context.GPUs.ToListAsync();
             return gpus;
         }
+
+        public async Task<GPU> GetGPUById(int id)
+        {
+            return await _context.GPUs.FindAsync(id);
+        }
     }
 }
