@@ -7,16 +7,23 @@ namespace GPUTestAnalysisFeb5.Services
     public class GPUService : IGPUService
     {
         private readonly DataContext _context;
-        List<GPU> _gpuList = new();
 
         public GPUService(DataContext context) 
         {
             _context = context;
         }
+
+        public async Task<GPU> AddGPU(GPU gpu) 
+        {
+            _context.GPUs.Add(gpu);
+            await _context.SaveChangesAsync();
+
+            return gpu;
+        }
         public async Task<List<GPU>> GetAllGPUs()
         {
-            _gpuList = await _context.GPUs.ToListAsync();
-            return _gpuList;
+            var gpus = await _context.GPUs.ToListAsync();
+            return gpus;
         }
     }
 }

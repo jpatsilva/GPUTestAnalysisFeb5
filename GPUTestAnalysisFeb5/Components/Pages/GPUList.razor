@@ -1,9 +1,13 @@
 ﻿@page "/GPUs"
 @using GPUTestAnalysisFeb5.Entity
 @using GPUTestAnalysisFeb5.Services
-@inject IGPUService GPUService
 
-<h3>GPUList</h3>
+@inject IGPUService GPUService
+@inject NavigationManager NavigationManager
+@attribute [StreamRendering(true)]
+@rendermode InteractiveServer
+
+<h3>List of GPUs</h3>
 
 @if(gpus == null)
 {
@@ -23,11 +27,18 @@ else
     </ul>
 }
 
+<button @onclick="CreateGPU" class="btn btn-primary">Create GPU</button>
+
 @code {
     List<GPU>? gpus = new();
 
     protected override async Task OnInitializedAsync()
     {
         gpus = await GPUService.GetAllGPUs();
+    }
+
+    void CreateGPU()
+    {
+        NavigationManager.NavigateTo("/editgpu");
     }
 }

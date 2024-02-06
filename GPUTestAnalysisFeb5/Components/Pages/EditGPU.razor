@@ -1,0 +1,37 @@
+﻿@page "/editgpu"
+@page "/editgpu/{id:int}"
+@using GPUTestAnalysisFeb5.Entity
+@using GPUTestAnalysisFeb5.Services
+
+
+@inject IGPUService GPUService
+
+<h3>Create a GPU</h3>
+
+<EditForm Model="gpu" OnSubmit="HandleSubmit" FormName="editGPU" class="col-3">
+    <label for="formGroupNewGPU" class="form-label">Type: </label>
+    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Type" @bind-Value="gpu.Type">@gpu.Type</InputText>
+    <br />
+    <label for ="formGroupNewGPU" class="form-label">Parameter: </label>
+    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Parameter" @bind-Value="gpu.Parameter">@gpu.Parameter</InputText>
+    <br />
+    <label for="formGroupNewGPU" class="form-label">Expression: </label>
+    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Expression" @bind-Value="gpu.Expression">@gpu.Expression</InputText>
+    <br />
+    <label for="formGroupNewGPU" class="form-label">Description: </label>
+    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Description" @bind-Value="gpu.Destription">@gpu.Destription</InputText>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+    @code {
+    [Parameter]
+    public int? Id { get; set; }
+    [SupplyParameterFromForm]
+    GPU gpu { get; set; } = new GPU { Id = 0, Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
+
+    async Task HandleSubmit()
+    {
+        await GPUService.AddGPU(gpu);
+    }
+}
