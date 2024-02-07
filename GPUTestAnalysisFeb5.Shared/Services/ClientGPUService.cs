@@ -26,6 +26,18 @@ namespace GPUTestAnalysisFeb5.Shared.Services
 
         }
 
+        public async Task<bool> DeleteGPU(int id)
+        {
+            var result = await _httpClient.DeleteAsync($"/api/gpu/{id}");
+            return await result.Content.ReadFromJsonAsync<bool>();
+        }
+
+        public async Task<GPU> EditGPU(int id, GPU gpu)
+        {
+            var result = await _httpClient.PutAsJsonAsync($"/api/gpu{id}", gpu);
+            return await result.Content.ReadFromJsonAsync<GPU>();
+        }
+
         public Task<List<GPU>> GetAllGPUs()
         {
             throw new NotImplementedException();

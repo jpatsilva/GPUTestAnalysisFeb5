@@ -2,6 +2,7 @@
 @page "/editgpu/{id:int}"
 @using GPUTestAnalysisFeb5.Shared.Entity
 @using GPUTestAnalysisFeb5.Shared.Services
+@using Microsoft.AspNetCore.Components.Forms
 @inject IGPUService GPUService
 @rendermode InteractiveWebAssembly
 
@@ -13,8 +14,6 @@ else
 {
     <h3>Edit @gpu.Type</h3>
 }
-
-
 
 <EditForm Model="gpu" OnSubmit="HandleSubmit" FormName="editGPU" class="col-3">
     <label for="formGroupNewGPU" class="form-label">Type: </label>
@@ -30,13 +29,18 @@ else
     <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Description" @bind-Value="gpu.Destription">@gpu.Destription</InputText>
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
+    @if(Id != null)
+    {
+        <button onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
+    }
 </EditForm>
 
-    @code {
+@code {
     [Parameter]
     public int? Id { get; set; }
+
     [SupplyParameterFromForm]
-    GPU gpu { get; set; } = new GPU { Id = 0, Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
+    GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
 
     protected override async Task OnParametersSetAsync()
     {
@@ -45,6 +49,19 @@ else
 
     async Task HandleSubmit()
     {
-        await GPUService.AddGPU(gpu);
+        if(Id == null)
+        {
+            await GPUService.AddGPU(gpu);
+        }
+        else
+        {
+            await GPUService.EditGPU((int)Id, gpu);
+        }
+
+    }
+
+    async Task DeleteGPU()
+    {
+        await GPUService.DeleteGPU((int)Id);
     }
 }

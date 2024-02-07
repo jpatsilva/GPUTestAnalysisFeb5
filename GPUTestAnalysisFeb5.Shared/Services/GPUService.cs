@@ -20,6 +20,32 @@ namespace GPUTestAnalysisFeb5.Shared.Services
 
             return gpu;
         }
+
+        public async Task<bool> DeleteGPU(int id)
+        {
+            var dbGPU = await _context.GPUs.FindAsync(id);
+            if (dbGPU != null) 
+            {
+                _context.Remove(dbGPU);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<GPU> EditGPU(int id, GPU gpu)
+        {
+            var dbGPU = await _context.GPUs.FindAsync(id);
+            if (dbGPU != null) 
+            {
+                dbGPU.Type = gpu.Type;
+                await _context.SaveChangesAsync();
+                return dbGPU;
+            }
+            throw new Exception("GPU not found.");
+        }
+
         public async Task<List<GPU>> GetAllGPUs()
         {
             var gpus = await _context.GPUs.ToListAsync();

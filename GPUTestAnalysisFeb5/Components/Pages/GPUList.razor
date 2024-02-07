@@ -4,7 +4,6 @@
 @using GPUTestAnalysisFeb5.Shared
 
 @inject IGPUService GPUService
-@inject NavigationManager NavigationManager
 @attribute [StreamRendering(true)]
 @rendermode InteractiveServer
 
@@ -28,7 +27,7 @@ else
     </ul>
 }
 
-<button @onclick="CreateGPU" class="btn btn-primary">Create GPU</button>
+<CreateGPUButton />
 
 @code {
     List<GPU>? gpus = new();
@@ -36,10 +35,5 @@ else
     protected override async Task OnInitializedAsync()
     {
         gpus = await GPUService.GetAllGPUs();
-    }
-
-    void CreateGPU()
-    {
-        NavigationManager.NavigateTo("/editgpu");
     }
 }
