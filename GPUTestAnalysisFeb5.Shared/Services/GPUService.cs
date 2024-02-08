@@ -40,6 +40,10 @@ namespace GPUTestAnalysisFeb5.Shared.Services
             if (dbGPU != null) 
             {
                 dbGPU.Type = gpu.Type;
+                //dbuGPU.Parameter = gpu.Parameter;
+                //dbuGPU.Expression = gpu.Expression;
+                //dbuGPU.Description = gpu.Destription;
+
                 await _context.SaveChangesAsync();
                 return dbGPU;
             }

@@ -9,7 +9,7 @@
 
 @rendermode InteractiveAuto
 
-@if(Id == null)
+@if(id == null)
 {
     <h3>Create a GPU</h3>
 }
@@ -18,21 +18,21 @@ else
     <h3>Edit @gpu.Type</h3>
 }
 
-<EditForm Model="gpu" OnSubmit="HandleSubmit" FormName="editGPU" class="col-3">
-    <label for="formGroupNewGPU" class="form-label">Type: </label>
-    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Type" @bind-Value="gpu.Type">@gpu.Type</InputText>
+<EditForm Model="gpu" OnSubmit="HandleSubmit" class="col-3">
+    <label class="form-label">Type: </label>
+    <InputText class="form-control" placeholder="GPU Type" @bind-Value="gpu.Type">@gpu.Type</InputText>
     <br />
-    <label for ="formGroupNewGPU" class="form-label">Parameter: </label>
-    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Parameter" @bind-Value="gpu.Parameter">@gpu.Parameter</InputText>
+    <label class="form-label">Parameter: </label>
+    <InputText class="form-control" placeholder="GPU Parameter" @bind-Value="gpu.Parameter">@gpu.Parameter</InputText>
     <br />
-    <label for="formGroupNewGPU" class="form-label">Expression: </label>
-    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Expression" @bind-Value="gpu.Expression">@gpu.Expression</InputText>
+    <label class="form-label">Expression: </label>
+    <InputText class="form-control" placeholder="GPU Expression" @bind-Value="gpu.Expression">@gpu.Expression</InputText>
     <br />
-    <label for="formGroupNewGPU" class="form-label">Description: </label>
-    <InputText class="form-control" id="formGroupNewGPU" placeholder="GPU Description" @bind-Value="gpu.Destription">@gpu.Destription</InputText>
+    <label class="form-label">Description: </label>
+    <InputText class="form-control" placeholder="GPU Description" @bind-Value="gpu.Destription">@gpu.Destription</InputText>
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
-    @if(Id != null)
+    @if(id != null)
     {
         <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
     }
@@ -40,31 +40,33 @@ else
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public int? id { get; set; }
 
-    [SupplyParameterFromForm]
     GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
 
     protected override async Task OnParametersSetAsync()
     {
-        gpu = await GPUService.GetGPUById((int)Id);
+        if(id > 0)
+        {
+            gpu = await GPUService.GetGPUById((int)id);
+        }
     }
 
     async Task HandleSubmit()
     {
-        if(Id == null)
+        if(id == null)
         {
             await GPUService.AddGPU(gpu);
         }
         else
         {
-            await GPUService.EditGPU((int)Id, gpu);
+            await GPUService.EditGPU((int)id, gpu);
         }
 
     }
 
     async Task DeleteGPU()
     {
-        await GPUService.DeleteGPU((int)Id);
+        await GPUService.DeleteGPU((int)id);
     }
 }

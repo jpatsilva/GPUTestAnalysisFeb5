@@ -22,6 +22,8 @@ namespace GPUTestAnalysisFeb5.Shared.Services
             var result = await _httpClient
                 .PostAsJsonAsync("/api/gpu", gpu);
 
+            HttpContent content = result.Content;
+
             return await result.Content.ReadFromJsonAsync<GPU>();
 
         }
@@ -35,7 +37,10 @@ namespace GPUTestAnalysisFeb5.Shared.Services
         public async Task<GPU> EditGPU(int id, GPU gpu)
         {
             var result = await _httpClient.PutAsJsonAsync($"/api/gpu{id}", gpu);
-            return await result.Content.ReadFromJsonAsync<GPU>();
+
+            HttpContent content = result.Content;
+
+            return await content.ReadFromJsonAsync<GPU>();
         }
 
         public Task<List<GPU>> GetAllGPUs()
