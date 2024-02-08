@@ -54,7 +54,13 @@ namespace GPUTestAnalysisFeb5.Shared.Services
 
         public async Task<GPU> GetGPUById(int id)
         {
-            return await _context.GPUs.FindAsync(id);
+            var dbGPU = await _context.GPUs.FindAsync(id);
+
+            if (dbGPU != null)
+            {
+                return dbGPU;
+            }
+            throw new Exception("No GPU found.");
         }
     }
 }

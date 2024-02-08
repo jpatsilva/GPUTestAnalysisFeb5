@@ -1,10 +1,13 @@
 ﻿@page "/editgpu"
 @page "/editgpu/{id:int}"
+
 @using GPUTestAnalysisFeb5.Shared.Entity
 @using GPUTestAnalysisFeb5.Shared.Services
 @using Microsoft.AspNetCore.Components.Forms
+
 @inject IGPUService GPUService
-@rendermode InteractiveWebAssembly
+
+@rendermode InteractiveAuto
 
 @if(Id == null)
 {
@@ -31,7 +34,7 @@ else
     <button type="submit" class="btn btn-primary">Submit</button>
     @if(Id != null)
     {
-        <button onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
+        <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
     }
 </EditForm>
 
