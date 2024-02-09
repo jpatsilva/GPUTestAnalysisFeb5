@@ -15,6 +15,7 @@ namespace GPUTestAnalysisFeb5.Shared.Services
 
         public async Task<GPU> AddGPU(GPU gpu) 
         {
+            //gpu.Id = _context.GPUs.Max(gpu => gpu.Id) + 1;
             _context.GPUs.Add(gpu);
             await _context.SaveChangesAsync();
 
@@ -50,9 +51,9 @@ namespace GPUTestAnalysisFeb5.Shared.Services
             throw new Exception("GPU not found.");
         }
 
-        public async Task<List<GPU>> GetAllGPUs()
+        public List<GPU> GetAllGPUs()
         {
-            var gpus = await _context.GPUs.ToListAsync();
+            var gpus = _context.GPUs.ToList();
             return gpus;
         }
 

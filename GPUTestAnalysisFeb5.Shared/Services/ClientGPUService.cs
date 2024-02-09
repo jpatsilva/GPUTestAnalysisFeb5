@@ -43,7 +43,7 @@ namespace GPUTestAnalysisFeb5.Shared.Services
             return await content.ReadFromJsonAsync<GPU>();
         }
 
-        public Task<List<GPU>> GetAllGPUs()
+        public List<GPU> GetAllGPUs()
         {
             throw new NotImplementedException();
         }

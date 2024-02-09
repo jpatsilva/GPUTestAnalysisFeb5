@@ -6,25 +6,26 @@
 @using Microsoft.AspNetCore.Components.Forms
 
 @inject IGPUService GPUService
+@inject NavigationManager NavigationManager
 
 @rendermode InteractiveAuto
 
 @if(id == null)
 {
-    <PageTitle>New GPU</PageTitle>
-    <h3>Create a new GPU</h3>
+    <PageTitle>@title</PageTitle>
+    <h3>@title</h3>
     //<h3>Create a new GPU</h3>
 }
 else
 {
-    <PageTitle>Edit GPU</PageTitle>
+    <PageTitle>@title</PageTitle>
     <h1>Creating a new GPU</h1>
-    <h3>Edit @gpu.Type</h3>
+    <h3>@title</h3>
 }
 
 <div class="row">
     <div class="col-sm-4">
-        <EditForm Model="@gpu">
+        <EditForm Model="@gpu" OnSubmit="HandleSubmit">
             <div class="mb-3">
                 <label for="type"class="form-label">Type:</label>
                 <InputText id="type" @bind-Value="gpu.Type" class="form-control" placeholder="GPU Type" >@gpu.Type</InputText>
@@ -42,13 +43,13 @@ else
                 <InputText id="description" @bind-Value="gpu.Destription" class="form-control" placeholder="GPU Description">@gpu.Destription</InputText>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-
             @if (id != null)
             {
                 <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
             }
 
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick="@Cancel">Cancel</button>
         </EditForm>
     </div>
 </div>
@@ -59,6 +60,8 @@ else
 
     GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
 
+    private string title = string.Empty;
+
     protected override async Task OnParametersSetAsync()
     {
         if(id > 0)
@@ -67,15 +70,18 @@ else
         }
     }
 
-    async Task HandleSubmit()
+    private void HandleSubmit()
     {
         if(id == null)
         {
-            await GPUService.AddGPU(gpu);
+            GPUService.AddGPU(gpu);
+            NavigationManager.NavigateTo("/GPUs");
+            title = "New GPU";
         }
         else
         {
-            await GPUService.EditGPU((int)id, gpu);
+            GPUService.EditGPU((int)id, gpu);
+            title = $"Edit {gpu.Type}";
         }
 
     }
@@ -83,5 +89,10 @@ else
     async Task DeleteGPU()
     {
         await GPUService.DeleteGPU((int)id);
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/GPUs");
     }
 }
