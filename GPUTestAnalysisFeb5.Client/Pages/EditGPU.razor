@@ -11,32 +11,47 @@
 
 @if(id == null)
 {
-    <h3>Create a GPU</h3>
+    <PageTitle>New GPU</PageTitle>
+    <h3>Create a new GPU</h3>
+    //<h3>Create a new GPU</h3>
 }
 else
 {
+    <PageTitle>Edit GPU</PageTitle>
+    <h1>Creating a new GPU</h1>
     <h3>Edit @gpu.Type</h3>
 }
 
-<EditForm Model="gpu" OnSubmit="HandleSubmit" class="col-4">
-    <label class="form-label">Type: </label>
-    <InputText class="form-control" placeholder="GPU Type" @bind-Value="gpu.Type">@gpu.Type</InputText>
-    <br />
-    <label class="form-label">Parameter: </label>
-    <InputText class="form-control" placeholder="GPU Parameter" @bind-Value="gpu.Parameter">@gpu.Parameter</InputText>
-    <br />
-    <label class="form-label">Expression: </label>
-    <InputText class="form-control" placeholder="GPU Expression" @bind-Value="gpu.Expression">@gpu.Expression</InputText>
-    <br />
-    <label class="form-label">Description: </label>
-    <InputText class="form-control" placeholder="GPU Description" @bind-Value="gpu.Destription">@gpu.Destription</InputText>
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-    @if(id != null)
-    {
-        <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
-    }
-</EditForm>
+<div class="row">
+    <div class="col-sm-4">
+        <EditForm Model="@gpu">
+            <div class="mb-3">
+                <label for="type"class="form-label">Type:</label>
+                <InputText id="type" @bind-Value="gpu.Type" class="form-control" placeholder="GPU Type" >@gpu.Type</InputText>
+            </div>
+            <div class="mb-3">
+                <label for="parameter" class="form-label">Parameter:</label>
+                <InputText id="parameter" @bind-Value="gpu.Parameter" class="form-control" placeholder="GPU Parameter">@gpu.Parameter</InputText>
+            </div>
+            <div class="mb-3">
+                <label for="expression" class="form-label">Expression:</label>
+                <InputText id="expression" @bind-Value="gpu.Expression" class="form-control" placeholder="GPU Expression">@gpu.Expression</InputText>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <InputText id="description" @bind-Value="gpu.Destription" class="form-control" placeholder="GPU Description">@gpu.Destription</InputText>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            @if (id != null)
+            {
+                <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
+            }
+
+        </EditForm>
+    </div>
+</div>
 
 @code {
     [Parameter]
