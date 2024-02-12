@@ -1,6 +1,5 @@
 ﻿using GPUTestAnalysisFeb5.Shared.Data;
 using GPUTestAnalysisFeb5.Shared.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace GPUTestAnalysisFeb5.Shared.Services
 {
