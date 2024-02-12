@@ -1,0 +1,52 @@
+﻿@page "/AddGPU"
+@using GPUTestAnalysisFeb5.Shared.Entity
+@using GPUTestAnalysisFeb5.Shared.Services
+
+@inject NavigationManager NavigationManager
+@inject IGPUService GPUService
+
+<PageTitle>New GPU</PageTitle>
+<h1>Creating a new GPU</h1>
+<h3>New GPU</h3>
+
+<div class="row">
+    <div class="col-sm-4">
+        <EditForm Model="@gpu" formname="Add" OnSubmit="HandleSubmit">
+            <div class="mb-3">
+                <label for="type" class="form-label">Type:</label>
+                <InputText id="type" @bind-Value="gpu.Type" class="form-control" placeholder="GPU Type">@gpu.Type</InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="parameter" class="form-label">Parameter:</label>
+                    <InputText id="parameter" @bind-Value="gpu.Parameter" class="form-control" placeholder="GPU Parameter">@gpu.Parameter</InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="expression" class="form-label">Expression:</label>
+                    <InputText id="expression" @bind-Value="gpu.Expression" class="form-control" placeholder="GPU Expression">@gpu.Expression</InputText>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="gpu.Description" class="form-control" placeholder="GPU Description">@gpu.Description</InputText>
+                </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" @onclick="@Cancel">Cancel</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Description = string.Empty };
+
+    private string title = string.Empty;
+
+    private void HandleSubmit()
+    {
+        GPUService.AddGPU(gpu);
+        NavigationManager.NavigateTo("/GPUs");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/GPUs");
+    }
+}

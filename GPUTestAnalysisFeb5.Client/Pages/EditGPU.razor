@@ -10,22 +10,13 @@
 
 @rendermode InteractiveAuto
 
-@if(id == null)
-{
-    <PageTitle>@title</PageTitle>
-    <h3>@title</h3>
-    //<h3>Create a new GPU</h3>
-}
-else
-{
-    <PageTitle>@title</PageTitle>
-    <h1>Creating a new GPU</h1>
-    <h3>@title</h3>
-}
+<PageTitle>@title</PageTitle>
+<h1>Editing GPU @title</h1>
+<h3>@title</h3>
 
 <div class="row">
     <div class="col-sm-4">
-        <EditForm Model="@gpu" OnSubmit="HandleSubmit">
+        <EditForm Model="@gpu" formname="Edit" OnSubmit="HandleSubmit">
             <div class="mb-3">
                 <label for="type"class="form-label">Type:</label>
                 <InputText id="type" @bind-Value="gpu.Type" class="form-control" placeholder="GPU Type" >@gpu.Type</InputText>
@@ -40,13 +31,8 @@ else
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description:</label>
-                <InputText id="description" @bind-Value="gpu.Destription" class="form-control" placeholder="GPU Description">@gpu.Destription</InputText>
+                <InputText id="description" @bind-Value="gpu.Description" class="form-control" placeholder="GPU Description">@gpu.Description</InputText>
             </div>
-
-            @if (id != null)
-            {
-                <button @onclick="DeleteGPU" type="button" class="btn btn-danger">Delete</button>
-            }
 
             <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-secondary" @onclick="@Cancel">Cancel</button>
@@ -54,11 +40,11 @@ else
     </div>
 </div>
 
-@code {
+    @code {
     [Parameter]
     public int? id { get; set; }
 
-    GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Destription = string.Empty };
+    GPU gpu { get; set; } = new GPU { Type = string.Empty, Parameter = string.Empty, Expression = string.Empty, Description = string.Empty };
 
     private string title = string.Empty;
 
@@ -72,27 +58,13 @@ else
 
     private void HandleSubmit()
     {
-        if(id == null)
-        {
-            GPUService.AddGPU(gpu);
-            NavigationManager.NavigateTo("/GPUs");
-            title = "New GPU";
-        }
-        else
-        {
-            GPUService.EditGPU((int)id, gpu);
-            title = $"Edit {gpu.Type}";
-        }
-
-    }
-
-    async Task DeleteGPU()
-    {
-        await GPUService.DeleteGPU((int)id);
+        GPUService.EditGPU((int)id!, gpu);
+        title = $"Edit {gpu.Type}";
+        NavigationManager.NavigateTo("/gpus");
     }
 
     private void Cancel()
     {
-        NavigationManager.NavigateTo("/GPUs");
+        NavigationManager.NavigateTo("/gpus");
     }
 }

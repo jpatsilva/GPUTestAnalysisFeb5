@@ -1,13 +1,12 @@
 ﻿using GPUTestAnalysisFeb5.Shared.Entity;
 
-namespace GPUTestAnalysisFeb5.Shared.Services
+namespace GPUTestAnalysisFeb5.Shared.Services;
+
+public interface IGPUService
 {
-    public interface IGPUService
-    {
-        List<GPU> GetAllGPUs();
-        Task<GPU> AddGPU(GPU gpu);
-        Task<GPU> GetGPUById(int id);
-        Task<GPU> EditGPU(int id, GPU gpu);
-        Task<bool> DeleteGPU(int id);
-    }
+    List<GPU> GetAllGPUs();
+    Task<GPU> AddGPU(GPU gpu);
+    Task<GPU> GetGPUById(int id);
+    Task<GPU> EditGPU(int id, GPU gpu);
+    Task<bool> DeleteGPU(int id);
 }

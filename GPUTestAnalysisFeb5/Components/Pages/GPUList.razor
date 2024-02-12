@@ -11,9 +11,10 @@
 
 @attribute [StreamRendering(true)]
 
-<h3>GPU Catalog</h3>
-<CreateGPUButton />
-<br /><br />
+<div>
+    <PageTitle>GPU Catalog</PageTitle>
+    <h3>GPU Catalog</h3>
+</div>
 
 @if(gpus == null)
 {
@@ -25,6 +26,10 @@ else if (gpus.Count == 0)
 }
 else
 {
+    <div>
+        <button class="btn btn-outline-primary" @onclick="(() => CreateGPU())">Create GPU</button>
+    </div>
+
     <DeleteGPU GPU="@currentGPU" OnClose="@OnDeleteModalClose">
     </DeleteGPU>
 
@@ -43,19 +48,17 @@ else
                     <td>@gpu.Type</td>
                     <td>@gpu.Parameter</td>
                     <td>@gpu.Expression</td>
-                    <td>@gpu.Destription</td>
+                    <td>@gpu.Description</td>
                     <td>
                         <button class="btn btn-primary" @onclick="(() => EditGPU(gpu.Id))">
-                        <i class="oi oi-pencil"></i>
+                            <i class="oi oi-pencil"></i>
                         </button>
-
                         <button class="btn btn-danger"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                        @onclick="(() => currentGPU = gpu)">
-                        <i class="oi oi:x"></i>
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            @onclick="(() => currentGPU = gpu)">
+                            <i class="oi oi-x"></i>
                         </button>
-
                     </td>
                 </tr>
             }
@@ -70,6 +73,11 @@ else
     protected override void OnInitialized()
     {
         gpus = GPUService.GetAllGPUs();
+    }
+
+    private void CreateGPU()
+    {
+        NavigationManager.NavigateTo("/AddGPU");
     }
 
     private void EditGPU(int id)
