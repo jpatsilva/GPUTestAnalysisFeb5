@@ -36,6 +36,7 @@ else
 
     <table id="allgpus" class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
+            <th>Id</th>
             <th>GPU</th>
             <th>Parameter</th>
             <th>Expression</th>
@@ -46,6 +47,7 @@ else
             @foreach (var gpu in gpus)
             {
                 <tr> 
+                    <td>@gpu.Id</td>
                     <td>@gpu.Type</td>
                     <td>@gpu.Parameter</td>
                     <td>@gpu.Expression</td>
